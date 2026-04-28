@@ -6,240 +6,188 @@
 <title>Officials Engine</title>
 
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap');
+    body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background: #0b0f17;
+        color: #ffffff;
+    }
 
-body {
-    margin: 0;
-    font-family: 'Inter', sans-serif;
-    background: radial-gradient(circle at top, #0b1220, #05070d);
-    color: white;
-    overflow-x: hidden;
-}
+    /* NAVBAR */
+    .navbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 20px 50px;
+        background: rgba(0,0,0,0.4);
+        position: fixed;
+        width: 100%;
+        top: 0;
+        z-index: 100;
+    }
 
-/* NAVBAR */
-nav {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 20px 60px;
-}
+    .navbar a {
+        color: #ffffff;
+        text-decoration: none;
+        margin: 0 15px;
+        font-weight: 500;
+    }
 
-.logo {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    font-weight: 800;
-    letter-spacing: 2px;
-}
+    .navbar .right-buttons a {
+        padding: 10px 20px;
+        border-radius: 5px;
+        margin-left: 10px;
+    }
 
-.logo span {
-    color: #3aa6ff;
-}
+    .btn-primary {
+        background: #007bff;
+        color: #fff !important;
+    }
 
-.nav-links a {
-    margin: 0 15px;
-    color: #aaa;
-    text-decoration: none;
-    font-size: 14px;
-}
+    .btn-outline {
+        border: 1px solid #007bff;
+        color: #007bff !important;
+    }
 
-.nav-links a:hover {
-    color: #3aa6ff;
-}
+    /* HERO SECTION */
+    .hero {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 150px 50px 100px;
+        background: linear-gradient(to bottom, #0b0f17, #0e1624);
+    }
 
-/* HERO */
-.hero {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 60px;
-}
+    .hero-text {
+        max-width: 50%;
+    }
 
-/* LEFT TEXT */
-.hero-text {
-    max-width: 50%;
-}
+    .hero-text h1 {
+        font-size: 48px;
+        font-weight: 800;
+        margin-bottom: 20px;
+        line-height: 1.2;
+    }
 
-.tag {
-    color: #3aa6ff;
-    font-size: 12px;
-    letter-spacing: 2px;
-    margin-bottom: 20px;
-}
+    .hero-text p {
+        font-size: 18px;
+        margin-bottom: 30px;
+        color: #cfd6e3;
+    }
 
-.hero-text h1 {
-    font-size: 56px;
-    margin: 0;
-    font-weight: 800;
-    line-height: 1.1;
-}
+    .hero-buttons a {
+        padding: 14px 28px;
+        border-radius: 6px;
+        margin-right: 15px;
+        font-size: 16px;
+        text-decoration: none;
+    }
 
-.hero-text h1 span {
-    color: #3aa6ff;
-}
+    .hero-image img {
+        width: 420px;
+        filter: drop-shadow(0 0 25px #00aaff);
+    }
 
-.hero-text p {
-    margin-top: 20px;
-    color: #bbb;
-    max-width: 400px;
-    line-height: 1.6;
-}
+    /* FEATURES SECTION */
+    .features {
+        display: flex;
+        justify-content: space-between;
+        padding: 80px 50px;
+        background: #0e1624;
+    }
 
-/* BUTTONS */
-.buttons {
-    margin-top: 30px;
-    display: flex;
-    gap: 15px;
-}
+    .feature-box {
+        width: 23%;
+        background: #111a2b;
+        padding: 25px;
+        border-radius: 10px;
+        border: 1px solid #1f2a3d;
+    }
 
-.btn {
-    padding: 12px 20px;
-    border-radius: 10px;
-    border: none;
-    cursor: pointer;
-    font-weight: 600;
-}
+    .feature-box h3 {
+        color: #00aaff;
+        margin-bottom: 10px;
+    }
 
-.btn-primary {
-    background: linear-gradient(135deg, #0077ff, #00c3ff);
-    color: white;
-}
+    .feature-box p {
+        color: #cfd6e3;
+        font-size: 15px;
+    }
 
-.btn-secondary {
-    background: transparent;
-    border: 1px solid #333;
-    color: #aaa;
-}
-
-/* RIGHT IMAGE */
-.hero-image {
-    position: relative;
-}
-
-.hero-image img {
-    width: 420px;
-    filter: drop-shadow(0 0 40px rgba(0,140,255,0.4));
-    animation: float 4s ease-in-out infinite;
-}
-
-@keyframes float {
-    0%,100% { transform: translateY(0); }
-    50% { transform: translateY(-10px); }
-}
-
-/* FEATURES */
-.features {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 20px;
-    padding: 60px;
-}
-
-.card {
-    background: rgba(255,255,255,0.04);
-    border: 1px solid rgba(255,255,255,0.08);
-    padding: 20px;
-    border-radius: 15px;
-    backdrop-filter: blur(10px);
-}
-
-.card h3 {
-    margin: 10px 0;
-    color: #3aa6ff;
-    font-size: 14px;
-}
-
-.card p {
-    font-size: 12px;
-    color: #aaa;
-}
-
-/* FOOTER LINE */
-.footer {
-    text-align: center;
-    padding: 30px;
-    font-size: 11px;
-    color: #555;
-    letter-spacing: 2px;
-}
+    /* FOOTER TAGLINE */
+    .footer-tagline {
+        text-align: center;
+        padding: 40px 0;
+        background: #0b0f17;
+        font-size: 20px;
+        font-weight: 700;
+        color: #00aaff;
+    }
 </style>
 </head>
 
 <body>
 
-<!-- NAV -->
-<nav>
-    <div class="logo">
-        ⚾ OFFICIALS <span>ENGINE</span>
-    </div>
-
-    <div class="nav-links">
+<!-- NAVBAR -->
+<div class="navbar">
+    <div class="left-links">
         <a href="#">Home</a>
         <a href="#">Features</a>
         <a href="#">Pricing</a>
         <a href="#">About</a>
+        <a href="#">Contact</a>
     </div>
-</nav>
 
-<!-- HERO -->
-<section class="hero">
+    <div class="right-buttons">
+        <a href="#" class="btn-outline">Log In</a>
+        <a href="#" class="btn-primary">Get Started</a>
+    </div>
+</div>
 
-    <!-- LEFT -->
+<!-- HERO SECTION -->
+<div class="hero">
     <div class="hero-text">
-        <div class="tag">BUILT FOR OFFICIALS • PERFORMANCE DRIVEN</div>
+        <h1>BUILT FOR OFFICIALS.<br>DRIVEN BY PERFORMANCE.</h1>
+        <h1>POWERING OFFICIALS.<br>ELEVATING THE GAME.</h1>
+        <p>Officials Engine is the all‑in‑one platform for umpires and sports officials to manage games, track performance, and grow their careers.</p>
 
-        <h1>
-            POWERING<br>
-            <span>OFFICIALS</span>.<br>
-            ELEVATING THE GAME.
-        </h1>
-
-        <p>
-            Officials Engine is an advanced platform for baseball umpires
-            to review calls, track accuracy, and improve performance using
-            AI-driven grading tools.
-        </p>
-
-        <div class="buttons">
-            <button class="btn btn-primary">Get Started</button>
-            <button class="btn btn-secondary">Learn More</button>
+        <div class="hero-buttons">
+            <a href="#" class="btn-primary">Get Started</a>
+            <a href="#" class="btn-outline">Learn More</a>
         </div>
     </div>
 
-    <!-- RIGHT -->
     <div class="hero-image">
-        <img src="emblem.png" alt="Umpire Mask Emblem">
+        <img src="YOUR-IMAGE-PATH-HERE.png" alt="Umpire Mask">
     </div>
-
-</section>
+</div>
 
 <!-- FEATURES -->
-<section class="features">
-
-    <div class="card">
-        <h3>GAME REVIEW</h3>
-        <p>Upload games and analyze every pitch decision.</p>
+<div class="features">
+    <div class="feature-box">
+        <h3>Game Management</h3>
+        <p>Schedule, assign, and manage games with ease.</p>
     </div>
 
-    <div class="card">
-        <h3>AI GRADING</h3>
-        <p>Automated accuracy scoring for umpire performance.</p>
+    <div class="feature-box">
+        <h3>Performance Tracking</h3>
+        <p>Track stats, evaluate games, and monitor progress.</p>
     </div>
 
-    <div class="card">
-        <h3>TRACK PROGRESS</h3>
-        <p>Monitor improvement over time with stats.</p>
+    <div class="feature-box">
+        <h3>Career Development</h3>
+        <p>Access training, resources, and advancement tools.</p>
     </div>
 
-    <div class="card">
-        <h3>OFFICIALS HUB</h3>
-        <p>Connect and compete with other umpires.</p>
+    <div class="feature-box">
+        <h3>Officials Community</h3>
+        <p>Connect with officials, share insights, and grow.</p>
     </div>
+</div>
 
-</section>
-
-<div class="footer">
-    BUILT BY OFFICIALS • FOR OFFICIALS
+<!-- FOOTER TAGLINE -->
+<div class="footer-tagline">
+    BUILT BY OFFICIALS. FOR OFFICIALS.
 </div>
 
 </body>
