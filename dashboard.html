@@ -15,10 +15,14 @@
       --blue: #2478ff;
       --blue-2: #0f58d9;
       --green: #57d980;
+      --violet: #9663ff;
+      --danger: #ff6b6b;
       --shadow: 0 24px 80px rgba(0, 0, 0, 0.44);
     }
 
-    * { box-sizing: border-box; }
+    * {
+      box-sizing: border-box;
+    }
 
     body {
       margin: 0;
@@ -31,22 +35,32 @@
         var(--bg);
     }
 
-    a { color: inherit; text-decoration: none; }
-    button, input, select, textarea { font: inherit; }
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button,
+    input,
+    select,
+    textarea {
+      font: inherit;
+    }
 
     header {
       border-bottom: 1px solid rgba(100, 164, 255, 0.12);
-      background: rgba(2, 9, 19, 0.9);
+      background: rgba(2, 9, 19, 0.92);
+      backdrop-filter: blur(10px);
     }
 
     .nav {
-      width: min(100% - 40px, 1200px);
-      min-height: 96px;
+      width: min(100% - 40px, 1220px);
+      min-height: 92px;
       margin: auto;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 20px;
+      gap: 22px;
     }
 
     .logo {
@@ -56,7 +70,9 @@
       text-transform: uppercase;
     }
 
-    .logo span { color: var(--blue); }
+    .logo span {
+      color: var(--blue);
+    }
 
     .menu {
       display: flex;
@@ -64,16 +80,19 @@
       gap: clamp(16px, 2.4vw, 34px);
       margin-left: auto;
       color: rgba(255, 255, 255, 0.9);
-      font-weight: 600;
+      font-weight: 700;
     }
 
-    .menu a:hover { color: var(--blue); }
+    .menu a:hover,
+    .menu a.active {
+      color: var(--blue);
+    }
 
     .btn {
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      min-height: 46px;
+      min-height: 44px;
       padding: 0 18px;
       border-radius: 8px;
       border: 1px solid transparent;
@@ -92,39 +111,77 @@
     }
 
     main {
-      width: min(100% - 40px, 1200px);
+      width: min(100% - 40px, 1220px);
       margin: auto;
-      padding: 44px 0 60px;
+      padding: 42px 0 64px;
     }
 
-    .welcome { margin-bottom: 28px; }
-
-    .welcome h1 {
-      margin: 0 0 10px;
-      font-size: clamp(2.2rem, 4vw, 3.7rem);
-      line-height: 1.06;
-      text-transform: uppercase;
+    .view {
+      display: none;
     }
 
-    .welcome h1 span { color: var(--blue); }
-
-    .welcome p {
-      margin: 0;
-      color: var(--muted);
-      font-size: 1.1rem;
-      line-height: 1.5;
+    .view.active {
+      display: block;
     }
 
-    .metrics {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 18px;
+    .page-head {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 24px;
       margin-bottom: 24px;
     }
 
-    .metric-card,
-    .panel,
-    .dashboard-link {
+    .page-head h1 {
+      margin: 0 0 8px;
+      font-size: clamp(2rem, 4vw, 3.5rem);
+      line-height: 1.08;
+      text-transform: uppercase;
+    }
+
+    .page-head h1 span {
+      color: var(--blue);
+    }
+
+    .page-head p {
+      max-width: 760px;
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.5;
+      font-size: 1.05rem;
+    }
+
+    .grid {
+      display: grid;
+      gap: 18px;
+    }
+
+    .metrics {
+      grid-template-columns: repeat(4, 1fr);
+      margin-bottom: 24px;
+    }
+
+    .dashboard-tools {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    .groups-layout {
+      grid-template-columns: minmax(0, 1fr) 320px;
+      align-items: start;
+    }
+
+    .group-columns {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .group-home-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      align-items: start;
+    }
+
+    .metric,
+    .tool-card,
+    .panel {
       border: 1px solid var(--line);
       border-radius: 12px;
       background:
@@ -133,80 +190,120 @@
       box-shadow: var(--shadow);
     }
 
-    .metric-card { padding: 20px; }
+    .metric,
+    .tool-card,
+    .panel {
+      padding: 22px;
+    }
 
-    .metric-card strong {
+    .metric strong {
       display: block;
-      margin-bottom: 5px;
+      margin-bottom: 6px;
       color: #fff;
-      font-size: 2.3rem;
+      font-size: 2.35rem;
       line-height: 1;
     }
 
-    .metric-card span {
+    .metric span,
+    .muted {
       color: var(--muted);
-      font-weight: 700;
     }
 
-    .dashboard-links {
+    .tool-card {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 18px;
-      margin-bottom: 24px;
+      gap: 10px;
+      min-height: 142px;
     }
 
-    .dashboard-link {
-      display: grid;
-      gap: 8px;
-      min-height: 132px;
-      padding: 24px;
-    }
-
-    .dashboard-link:hover,
-    .dashboard-link.active {
+    .tool-card:hover {
       border-color: var(--blue);
       background:
-        linear-gradient(145deg, rgba(36, 120, 255, 0.24), rgba(3, 13, 27, 0.92)),
+        linear-gradient(145deg, rgba(36, 120, 255, 0.22), rgba(3, 13, 27, 0.92)),
         var(--panel);
     }
 
-    .dashboard-link strong {
-      color: #fff;
-      font-size: 1.35rem;
-      text-transform: uppercase;
-    }
-
-    .dashboard-link span {
-      color: var(--muted);
-      line-height: 1.45;
-    }
-
-    .groups-shell {
-      display: grid;
-      gap: 18px;
-      scroll-margin-top: 24px;
-    }
-
-    .groups-shell[hidden] { display: none; }
-
-    .layout {
-      display: grid;
-      grid-template-columns: 320px minmax(0, 1fr);
-      gap: 22px;
-      align-items: start;
-    }
-
-    .panel { padding: 24px; }
-
+    .tool-card strong,
     .panel h2,
     .panel h3 {
-      margin: 0 0 14px;
+      margin: 0;
       text-transform: uppercase;
     }
 
+    .tool-card span,
     .panel p {
+      margin: 0;
       color: var(--muted);
       line-height: 1.45;
+    }
+
+    .section-title {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      margin-bottom: 14px;
+    }
+
+    .section-title h2 {
+      margin: 0;
+      text-transform: uppercase;
+    }
+
+    .group-list,
+    .item-list {
+      display: grid;
+      gap: 12px;
+    }
+
+    .group-card,
+    .item-card {
+      width: 100%;
+      padding: 15px;
+      border: 1px solid rgba(134, 188, 255, 0.22);
+      border-radius: 10px;
+      color: #fff;
+      background: rgba(2, 9, 19, 0.55);
+      text-align: left;
+    }
+
+    button.group-card {
+      cursor: pointer;
+    }
+
+    button.group-card:hover {
+      border-color: var(--blue);
+      background: rgba(36, 120, 255, 0.16);
+    }
+
+    .item-card strong,
+    .group-card strong {
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      min-height: 28px;
+      padding: 0 10px;
+      border: 1px solid rgba(87, 217, 128, 0.44);
+      border-radius: 999px;
+      color: var(--green);
+      background: rgba(87, 217, 128, 0.1);
+      font-size: 0.85rem;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+
+    .pill.blue {
+      color: #8fc2ff;
+      border-color: rgba(36, 120, 255, 0.44);
+      background: rgba(36, 120, 255, 0.12);
+    }
+
+    .small {
+      font-size: 0.92rem;
+      line-height: 1.38;
     }
 
     form {
@@ -225,7 +322,7 @@
     select,
     textarea {
       width: 100%;
-      min-height: 46px;
+      min-height: 44px;
       padding: 0 12px;
       border: 1px solid rgba(134, 188, 255, 0.28);
       border-radius: 8px;
@@ -235,7 +332,7 @@
     }
 
     textarea {
-      min-height: 96px;
+      min-height: 92px;
       padding: 12px;
       resize: vertical;
       line-height: 1.45;
@@ -251,141 +348,15 @@
     .two-column,
     .three-column {
       display: grid;
-      gap: 14px;
-    }
-
-    .two-column { grid-template-columns: repeat(2, 1fr); }
-    .three-column { grid-template-columns: repeat(3, 1fr); }
-
-    .checkbox-row {
-      display: flex;
-      align-items: flex-start;
-      gap: 10px;
-      color: var(--muted);
-      font-weight: 700;
-      line-height: 1.4;
-    }
-
-    input[type="checkbox"] {
-      width: 18px;
-      min-height: 18px;
-      margin-top: 2px;
-      accent-color: var(--blue);
-      flex: 0 0 auto;
-    }
-
-    .group-list,
-    .list {
-      display: grid;
       gap: 12px;
     }
 
-    .group-list { margin-top: 16px; }
-
-    .group-button {
-      width: 100%;
-      padding: 14px;
-      border: 1px solid rgba(134, 188, 255, 0.22);
-      border-radius: 10px;
-      color: #fff;
-      background: rgba(2, 9, 19, 0.55);
-      cursor: pointer;
-      text-align: left;
-    }
-
-    .group-button.active {
-      border-color: var(--blue);
-      background: rgba(36, 120, 255, 0.16);
-    }
-
-    .group-button strong,
-    .item-card strong {
-      display: block;
-      margin-bottom: 4px;
-    }
-
-    .muted { color: var(--muted); }
-
-    .small {
-      font-size: 0.92rem;
-      line-height: 1.35;
-    }
-
-    .workspace-header {
-      display: flex;
-      align-items: flex-start;
-      justify-content: space-between;
-      gap: 18px;
-      margin-bottom: 18px;
-    }
-
-    .pill {
-      display: inline-flex;
-      align-items: center;
-      min-height: 30px;
-      padding: 0 10px;
-      border: 1px solid rgba(87, 217, 128, 0.44);
-      border-radius: 999px;
-      color: var(--green);
-      background: rgba(87, 217, 128, 0.1);
-      font-weight: 800;
-      white-space: nowrap;
-    }
-
-    .tabs {
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-      margin-bottom: 18px;
-    }
-
-    .tab {
-      min-height: 42px;
-      padding: 0 16px;
-      border: 1px solid rgba(134, 188, 255, 0.24);
-      border-radius: 8px;
-      color: var(--muted);
-      background: rgba(2, 9, 19, 0.52);
-      cursor: pointer;
-      font-weight: 800;
-    }
-
-    .tab.active {
-      color: #fff;
-      border-color: var(--blue);
-      background: rgba(36, 120, 255, 0.16);
-    }
-
-    .tab-panel { display: none; }
-    .tab-panel.active { display: grid; gap: 18px; }
-
-    .item-card {
-      padding: 16px;
-      border: 1px solid rgba(134, 188, 255, 0.2);
-      border-radius: 10px;
-      background: rgba(2, 9, 19, 0.5);
-    }
-
-    .item-grid {
-      display: grid;
-      grid-template-columns: 1fr auto;
-      gap: 16px;
-      align-items: start;
-    }
-
-    .detail-grid {
-      display: grid;
+    .two-column {
       grid-template-columns: repeat(2, 1fr);
-      gap: 10px;
-      margin-top: 10px;
     }
 
-    .detail {
-      padding: 10px;
-      border-radius: 8px;
-      background: rgba(134, 188, 255, 0.07);
-      color: var(--muted);
-      line-height: 1.35;
+    .three-column {
+      grid-template-columns: repeat(3, 1fr);
     }
 
     .message {
@@ -396,7 +367,9 @@
       line-height: 1.35;
     }
 
-    .message.show { display: block; }
+    .message.show {
+      display: block;
+    }
 
     .message.success {
       border: 1px solid rgba(87, 217, 128, 0.45);
@@ -417,16 +390,53 @@
       line-height: 1.45;
     }
 
-    .bulk-help {
-      margin: -4px 0 0;
-      color: var(--muted);
-      font-size: 0.92rem;
-      line-height: 1.45;
+    .modal {
+      position: fixed;
+      inset: 0;
+      z-index: 20;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      background: rgba(0, 0, 0, 0.64);
+    }
+
+    .modal.open {
+      display: flex;
+    }
+
+    .modal-card {
+      width: min(100%, 520px);
+      padding: 26px;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background:
+        linear-gradient(145deg, rgba(22, 58, 98, 0.58), rgba(3, 13, 27, 0.98)),
+        var(--panel);
+      box-shadow: var(--shadow);
+    }
+
+    .modal-card h2 {
+      margin: 0 0 16px;
+      text-transform: uppercase;
+    }
+
+    .modal-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 12px;
+      margin-top: 4px;
     }
 
     @media (max-width: 980px) {
-      .nav {
+      .nav,
+      .page-head,
+      .modal-actions {
         flex-direction: column;
+        align-items: stretch;
+      }
+
+      .nav {
         padding: 20px 0;
         text-align: center;
       }
@@ -438,24 +448,18 @@
       }
 
       .metrics,
-      .dashboard-links,
-      .layout,
+      .dashboard-tools,
+      .groups-layout,
+      .group-columns,
+      .group-home-grid,
       .two-column,
-      .three-column,
-      .detail-grid {
+      .three-column {
         grid-template-columns: 1fr;
-      }
-
-      .workspace-header,
-      .item-grid {
-        grid-template-columns: 1fr;
-        display: grid;
       }
     }
 
     @media (max-width: 560px) {
-      .btn,
-      .tab {
+      .btn {
         width: 100%;
       }
     }
@@ -465,266 +469,354 @@
 <body>
   <header>
     <div class="nav">
-      <a class="logo" href="index.html">Officials <span>Engine</span></a>
-
-      <nav class="menu" aria-label="Main navigation">
-        <a href="index.html">Home</a>
-        <a href="pricing.html">Pricing</a>
-        <a href="index.html#features">Features</a>
-        <a href="#groups">Groups</a>
+      <a class="logo" href="#dashboard">Officials <span>Engine</span></a>
+      <nav class="menu" aria-label="Dashboard navigation">
+        <a href="#dashboard" data-nav="dashboard">Dashboard</a>
+        <a href="#groups" data-nav="groups">Groups</a>
       </nav>
-
       <button class="btn outline" id="logoutButton" type="button">Logout</button>
     </div>
   </header>
 
-  <main id="dashboard">
-    <section class="welcome">
-      <h1>Hello, <span id="displayName">Official</span></h1>
-      <p id="accountLine">Create tournament groups, add static umpires, and build schedules from one workspace.</p>
-    </section>
-
-    <section class="metrics" aria-label="Dashboard summary">
-      <article class="metric-card">
-        <strong id="groupCount">0</strong>
-        <span>Groups</span>
-      </article>
-
-      <article class="metric-card">
-        <strong id="umpireCount">0</strong>
-        <span>Umpires</span>
-      </article>
-
-      <article class="metric-card">
-        <strong id="gameCount">0</strong>
-        <span>Games</span>
-      </article>
-
-      <article class="metric-card">
-        <strong id="assignedCount">0</strong>
-        <span>Assigned Games</span>
-      </article>
-    </section>
-
-    <section class="dashboard-links" aria-label="Dashboard tools">
-      <a class="dashboard-link" id="groupsDashboardLink" href="#groups">
-        <strong>Groups</strong>
-        <span>Create tournament groups, add static umpires, build schedules, and assign games.</span>
-      </a>
-    </section>
-
-    <section class="groups-shell" id="groups" hidden>
-      <div class="workspace-header">
+  <main>
+    <section class="view active" id="dashboardView">
+      <div class="page-head">
         <div>
-          <h2>Groups</h2>
-          <p class="muted">Create static tournament groups, add manual umpires, and manage schedules.</p>
+          <h1>Dashboard <span>Home</span></h1>
+          <p id="accountLine">Loading your workspace...</p>
         </div>
-
-        <a class="btn outline" href="#dashboard">Back To Dashboard</a>
       </div>
 
-      <section class="layout">
+      <section class="grid metrics" aria-label="Dashboard summary">
+        <article class="metric">
+          <strong id="groupCount">0</strong>
+          <span>Groups created</span>
+        </article>
+        <article class="metric">
+          <strong id="joinedCount">0</strong>
+          <span>Groups joined</span>
+        </article>
+        <article class="metric">
+          <strong id="gameCount">0</strong>
+          <span>Games</span>
+        </article>
+        <article class="metric">
+          <strong id="awaitingCount">0</strong>
+          <span>Awaiting assignment</span>
+        </article>
+      </section>
+
+      <section class="grid dashboard-tools">
+        <a class="tool-card" href="#groups">
+          <strong>Groups</strong>
+          <span>Open your joined and created groups. All umpire assigning tools live inside each group.</span>
+        </a>
+      </section>
+    </section>
+
+    <section class="view" id="groupsView">
+      <div class="page-head">
+        <div>
+          <h1>Groups</h1>
+          <p>Review groups you joined, manage groups you created, search your groups, or create a new group.</p>
+        </div>
+        <button class="btn" id="openCreateGroup" type="button">Create Group</button>
+      </div>
+
+      <section class="grid groups-layout">
+        <div class="grid group-columns">
+          <section class="panel">
+            <div class="section-title">
+              <h2>Groups Joined</h2>
+            </div>
+            <div id="joinedGroupsList" class="group-list"></div>
+          </section>
+
+          <section class="panel">
+            <div class="section-title">
+              <h2>Groups Created</h2>
+            </div>
+            <div id="createdGroupsList" class="group-list"></div>
+          </section>
+        </div>
+
         <aside class="panel">
-          <h2>Create Group</h2>
-
-          <form id="groupForm">
+          <h2>Find Groups</h2>
+          <form id="searchForm">
             <label>
-              Group name
-              <input id="groupName" type="text" placeholder="Example: July State Tournament" required />
+              Search
+              <input id="groupSearch" type="search" placeholder="Search by group or sport" />
             </label>
+          </form>
+          <p class="small">Use search to quickly filter the groups you created or joined.</p>
+        </aside>
+      </section>
+    </section>
 
-            <label>
-              Sport
-              <input id="groupSport" type="text" placeholder="Baseball, Softball, Basketball..." required />
-            </label>
+    <section class="view" id="groupHomeView">
+      <div class="page-head">
+        <div>
+          <h1 id="groupHomeTitle">Group Home</h1>
+          <p id="groupHomeMeta"></p>
+        </div>
+        <a class="btn outline" href="#groups">Back To Groups</a>
+      </div>
 
+      <section class="grid metrics" aria-label="Group summary">
+        <article class="metric">
+          <strong id="officialsToAssignCount">0</strong>
+          <span>Officials to assign</span>
+        </article>
+        <article class="metric">
+          <strong id="upcomingScheduleCount">0</strong>
+          <span>Upcoming schedule</span>
+        </article>
+        <article class="metric">
+          <strong id="assignedOfficialsCount">0</strong>
+          <span>Assigned officials</span>
+        </article>
+        <article class="metric">
+          <strong id="awaitingGamesCount">0</strong>
+          <span>Games awaiting assignment</span>
+        </article>
+      </section>
+
+      <section class="grid group-home-grid">
+        <article class="panel">
+          <h2>Add Officials To Group</h2>
+          <form id="umpireForm">
             <div class="two-column">
               <label>
-                Start date
-                <input id="startDate" type="date" required />
+                Official name
+                <input id="umpireName" type="text" required />
               </label>
-
               <label>
-                End date
-                <input id="endDate" type="date" required />
+                Contact
+                <input id="umpireContact" type="text" placeholder="Email or phone" />
               </label>
             </div>
-
-            <label class="checkbox-row">
-              <input id="staticGroup" type="checkbox" checked />
-              Static group: manually add umpires who are only connected to this group.
+            <label>
+              Availability
+              <textarea id="umpireAvailability"></textarea>
             </label>
-
-            <button class="btn" type="submit">Create Group</button>
+            <label>
+              Conflicts of interest
+              <textarea id="umpireConflicts"></textarea>
+            </label>
+            <label>
+              Abilities
+              <textarea id="umpireAbilities"></textarea>
+            </label>
+            <label>
+              Overall superiority
+              <select id="umpireSuperiority">
+                <option value="1">1 - Developing</option>
+                <option value="2">2 - Reliable</option>
+                <option value="3" selected>3 - Strong</option>
+                <option value="4">4 - Advanced</option>
+                <option value="5">5 - Elite</option>
+              </select>
+            </label>
+            <button class="btn" type="submit">Add Official</button>
           </form>
+          <div id="umpireMessage" class="message" aria-live="polite"></div>
+        </article>
 
-          <div id="groupMessage" class="message" aria-live="polite"></div>
+        <article class="panel">
+          <h2>Group Roster</h2>
+          <div id="rosterList" class="item-list"></div>
+        </article>
 
-          <h3>Your Groups</h3>
-          <div id="groupList" class="group-list"></div>
-        </aside>
-
-        <section class="panel">
-          <div id="emptyWorkspace" class="empty">
-            Create a group or select one from the left to start adding umpires and schedules.
-          </div>
-
-          <div id="workspace" hidden>
-            <div class="workspace-header">
-              <div>
-                <h2 id="activeGroupName">Group</h2>
-                <p id="activeGroupMeta"></p>
-              </div>
-
-              <span id="groupTypePill" class="pill">Static Group</span>
+        <article class="panel">
+          <h2>Add Games To Be Umpired</h2>
+          <form id="gameForm">
+            <div class="three-column">
+              <label>
+                Date
+                <input id="gameDate" type="date" required />
+              </label>
+              <label>
+                Time
+                <input id="gameTime" type="time" required />
+              </label>
+              <label>
+                Field
+                <input id="gameField" type="text" required />
+              </label>
             </div>
-
-            <div class="tabs" role="tablist" aria-label="Group tools">
-              <button class="tab active" type="button" data-tab="umpires">Umpires</button>
-              <button class="tab" type="button" data-tab="schedule">Schedule</button>
+            <div class="three-column">
+              <label>
+                Team 1
+                <input id="teamOne" type="text" required />
+              </label>
+              <label>
+                Team 2
+                <input id="teamTwo" type="text" required />
+              </label>
+              <label>
+                Level
+                <input id="gameLevel" type="text" />
+              </label>
             </div>
+            <label>
+              Assign official
+              <select id="assignedUmpire">
+                <option value="">Unassigned</option>
+              </select>
+            </label>
+            <button class="btn" type="submit">Add Game</button>
+          </form>
+          <div id="gameMessage" class="message" aria-live="polite"></div>
+        </article>
 
-            <section id="umpiresPanel" class="tab-panel active">
-              <div class="panel">
-                <h3>Add Static Umpire</h3>
-                <p class="small muted">
-                  Static umpires belong only to this group. They are not connected to any other account or part of the system.
-                </p>
+        <article class="panel">
+          <h2>Paste Games</h2>
+          <form id="bulkGameForm">
+            <label>
+              Copied schedule
+              <textarea id="bulkGamesText" placeholder="Paste one game per line: 2026-06-15, 9:00 AM, Field 1, Tigers, Bears, 12U"></textarea>
+            </label>
+            <button class="btn" type="submit">Import Games</button>
+          </form>
+          <div id="bulkGameMessage" class="message" aria-live="polite"></div>
+        </article>
 
-                <form id="umpireForm">
-                  <div class="two-column">
-                    <label>
-                      Umpire name
-                      <input id="umpireName" type="text" required />
-                    </label>
+        <article class="panel">
+          <h2>Upcoming Schedule</h2>
+          <div id="scheduleList" class="item-list"></div>
+        </article>
 
-                    <label>
-                      Contact
-                      <input id="umpireContact" type="text" placeholder="Email or phone" />
-                    </label>
-                  </div>
+        <article class="panel">
+          <h2>Assigned Officials</h2>
+          <div id="assignedOfficialsList" class="item-list"></div>
+        </article>
 
-                  <label>
-                    Availability
-                    <textarea id="umpireAvailability" placeholder="Example: Friday after 5 PM, all day Saturday, no Sunday morning"></textarea>
-                  </label>
+        <article class="panel">
+          <h2>Games Awaiting Assignment</h2>
+          <div id="awaitingGamesList" class="item-list"></div>
+        </article>
 
-                  <label>
-                    Conflicts of interest
-                    <textarea id="umpireConflicts" placeholder="Example: Cannot work Team A, coach conflict with 12U Blue"></textarea>
-                  </label>
+        <article class="panel">
+          <h2>Report Official Calling Out</h2>
+          <form class="report-form" data-report-type="official_call_out">
+            <label>
+              Title
+              <input name="title" type="text" placeholder="Official called out" required />
+            </label>
+            <label>
+              Details
+              <textarea name="details" placeholder="Who called out, when, and what game/event it affects"></textarea>
+            </label>
+            <button class="btn" type="submit">Save Report</button>
+          </form>
+        </article>
 
-                  <label>
-                    Abilities
-                    <textarea id="umpireAbilities" placeholder="Example: Plate, bases, championship games, 14U and under"></textarea>
-                  </label>
+        <article class="panel">
+          <h2>Report Ejection Or Removal</h2>
+          <form class="report-form" data-report-type="ejection_or_removal">
+            <label>
+              Title
+              <input name="title" type="text" placeholder="Ejection or spectator removal" required />
+            </label>
+            <label>
+              Details
+              <textarea name="details" placeholder="Who was removed/ejected, reason, game, and notes"></textarea>
+            </label>
+            <button class="btn" type="submit">Save Report</button>
+          </form>
+        </article>
 
-                  <label>
-                    Overall superiority rating
-                    <select id="umpireSuperiority" required>
-                      <option value="1">1 - Developing</option>
-                      <option value="2">2 - Reliable</option>
-                      <option value="3" selected>3 - Strong</option>
-                      <option value="4">4 - Advanced</option>
-                      <option value="5">5 - Elite</option>
-                    </select>
-                  </label>
+        <article class="panel">
+          <h2>General Report</h2>
+          <form class="report-form" data-report-type="general">
+            <label>
+              Title
+              <input name="title" type="text" placeholder="General report" required />
+            </label>
+            <label>
+              Details
+              <textarea name="details" placeholder="Anything important the assigner needs recorded"></textarea>
+            </label>
+            <button class="btn" type="submit">Save Report</button>
+          </form>
+        </article>
 
-                  <button class="btn" type="submit">Add Umpire</button>
-                </form>
-              </div>
+        <article class="panel">
+          <h2>Add Event</h2>
+          <form id="eventForm">
+            <label>
+              Event title
+              <input id="eventTitle" type="text" required />
+            </label>
+            <div class="three-column">
+              <label>
+                Date
+                <input id="eventDate" type="date" />
+              </label>
+              <label>
+                Time
+                <input id="eventTime" type="time" />
+              </label>
+              <label>
+                Location
+                <input id="eventLocation" type="text" />
+              </label>
+            </div>
+            <label>
+              Notes
+              <textarea id="eventNotes"></textarea>
+            </label>
+            <button class="btn" type="submit">Add Event</button>
+          </form>
+          <div id="eventMessage" class="message" aria-live="polite"></div>
+        </article>
 
-              <div>
-                <h3>Available Umpires</h3>
-                <div id="umpireList" class="list"></div>
-              </div>
-            </section>
+        <article class="panel">
+          <h2>Events</h2>
+          <div id="eventsList" class="item-list"></div>
+        </article>
 
-            <section id="schedulePanel" class="tab-panel">
-              <div class="panel">
-                <h3>Add Single Game</h3>
-
-                <form id="gameForm">
-                  <div class="three-column">
-                    <label>
-                      Date
-                      <input id="gameDate" type="date" required />
-                    </label>
-
-                    <label>
-                      Time
-                      <input id="gameTime" type="time" required />
-                    </label>
-
-                    <label>
-                      Field
-                      <input id="gameField" type="text" required />
-                    </label>
-                  </div>
-
-                  <div class="three-column">
-                    <label>
-                      Team 1
-                      <input id="teamOne" type="text" required />
-                    </label>
-
-                    <label>
-                      Team 2
-                      <input id="teamTwo" type="text" required />
-                    </label>
-
-                    <label>
-                      Level
-                      <input id="gameLevel" type="text" placeholder="12U, Varsity..." />
-                    </label>
-                  </div>
-
-                  <label>
-                    Assign umpire
-                    <select id="assignedUmpire">
-                      <option value="">Unassigned</option>
-                    </select>
-                  </label>
-
-                  <button class="btn" type="submit">Add Game</button>
-                </form>
-              </div>
-
-              <div class="panel">
-                <h3>Bulk Add Schedule</h3>
-                <p class="bulk-help">
-                  Paste rows copied from Tourney Machine, GameChanger, a spreadsheet, or CSV.
-                  Best format: date, time, field, team 1, team 2, level.
-                </p>
-
-                <form id="bulkGameForm">
-                  <label>
-                    Game rows
-                    <textarea id="bulkGames" placeholder="05/14/2026, 9:00 AM, Field 1, Eagles, Hawks, 12U&#10;05/14/2026, 10:30 AM, Field 2, Tigers, Lions, 14U"></textarea>
-                  </label>
-
-                  <button class="btn" type="submit">Import Games</button>
-                </form>
-
-                <div id="scheduleMessage" class="message" aria-live="polite"></div>
-              </div>
-
-              <div>
-                <h3>Schedule</h3>
-                <div id="gameList" class="list"></div>
-              </div>
-            </section>
-          </div>
-        </section>
+        <article class="panel">
+          <h2>Reports</h2>
+          <div id="reportMessage" class="message" aria-live="polite"></div>
+          <div id="reportsList" class="item-list"></div>
+        </article>
       </section>
     </section>
   </main>
+
+  <div class="modal" id="createGroupModal" aria-hidden="true">
+    <div class="modal-card">
+      <h2>Create Group</h2>
+      <form id="createGroupForm">
+        <label>
+          Group name
+          <input id="groupName" type="text" required />
+        </label>
+        <label>
+          Sport name
+          <input id="groupSport" type="text" required />
+        </label>
+        <label>
+          Group type
+          <select id="groupType" required>
+            <option value="static">Static</option>
+            <option value="active">Active</option>
+          </select>
+        </label>
+        <div id="groupMessage" class="message" aria-live="polite"></div>
+        <div class="modal-actions">
+          <button class="btn outline" id="closeCreateGroup" type="button">Cancel</button>
+          <button class="btn" type="submit">Create Group</button>
+        </div>
+      </form>
+    </div>
+  </div>
 
   <script>
     let currentUser = null;
     let groups = [];
     let activeGroupId = "";
-    let activeTab = "umpires";
 
     initDashboard();
 
@@ -734,15 +826,12 @@
         credentials: "same-origin",
         ...options
       });
-
       const data = await response.json().catch(function () {
         return {};
       });
-
       if (!response.ok) {
         throw new Error(data.error || "Something went wrong.");
       }
-
       return data;
     }
 
@@ -750,236 +839,237 @@
       try {
         const me = await apiRequest("/api/me");
         currentUser = me.user;
-
-        document.getElementById("displayName").textContent = currentUser.name || "Official";
-        document.getElementById("accountLine").textContent =
-          "Signed in as " + currentUser.role + ". Build groups, umpires, and schedules below.";
-
         await loadGroups();
         renderAll();
-        syncDashboardView();
+        route();
       } catch (error) {
         window.location.href = "login.html";
       }
     }
-
-    window.addEventListener("hashchange", syncDashboardView);
 
     async function loadGroups() {
       const data = await apiRequest("/api/groups");
       groups = data.groups || [];
     }
 
-    function myGroups() {
-      return groups;
+    window.addEventListener("hashchange", route);
+
+    function route() {
+      const hash = window.location.hash || "#dashboard";
+      document.querySelectorAll(".view").forEach(function (view) {
+        view.classList.remove("active");
+      });
+      document.querySelectorAll("[data-nav]").forEach(function (link) {
+        link.classList.remove("active");
+      });
+
+      if (hash.startsWith("#group/")) {
+        activeGroupId = hash.replace("#group/", "");
+        document.getElementById("groupHomeView").classList.add("active");
+        renderGroupHome();
+        return;
+      }
+
+      if (hash === "#groups") {
+        document.getElementById("groupsView").classList.add("active");
+        document.querySelector('[data-nav="groups"]').classList.add("active");
+        renderGroupsView();
+        return;
+      }
+
+      document.getElementById("dashboardView").classList.add("active");
+      document.querySelector('[data-nav="dashboard"]').classList.add("active");
+    }
+
+    function renderAll() {
+      const games = groups.flatMap(function (group) {
+        return group.games || [];
+      });
+      const awaiting = games.filter(function (game) {
+        return !game.umpireId;
+      });
+
+      document.getElementById("accountLine").textContent =
+        "Signed in as " + currentUser.role + ". Use Groups to manage assigning work.";
+      document.getElementById("groupCount").textContent = groups.length;
+      document.getElementById("joinedCount").textContent = 0;
+      document.getElementById("gameCount").textContent = games.length;
+      document.getElementById("awaitingCount").textContent = awaiting.length;
+      renderGroupsView();
+    }
+
+    function renderGroupsView() {
+      const search = document.getElementById("groupSearch")?.value.trim().toLowerCase() || "";
+      const created = groups.filter(function (group) {
+        return !search || group.name.toLowerCase().includes(search) || group.sport.toLowerCase().includes(search);
+      });
+
+      document.getElementById("joinedGroupsList").innerHTML =
+        '<div class="empty">No joined groups yet. Joined groups will appear here when invite/membership tools are added.</div>';
+
+      document.getElementById("createdGroupsList").innerHTML = created.length
+        ? created.map(groupCard).join("")
+        : '<div class="empty">No groups created yet. Click Create Group to start.</div>';
+    }
+
+    function groupCard(group) {
+      return [
+        '<button class="group-card" type="button" data-group-id="' + group.id + '">',
+        '<strong>' + escapeHtml(group.name) + '</strong>',
+        '<span class="small muted">' + escapeHtml(group.sport) + '</span><br>',
+        '<span class="pill ' + (group.type === "active" ? "blue" : "") + '">' + escapeHtml(capitalize(group.type || "static")) + '</span>',
+        '</button>'
+      ].join("");
     }
 
     function activeGroup() {
-      return myGroups().find(function (group) {
+      return groups.find(function (group) {
         return group.id === activeGroupId;
       }) || null;
     }
 
-    function setMessage(id, text, type) {
-      const element = document.getElementById(id);
-      element.textContent = text;
-      element.className = "message show " + type;
-
-      window.setTimeout(function () {
-        element.className = "message";
-        element.textContent = "";
-      }, 3200);
-    }
-
-    function renderAll() {
-      renderMetrics();
-      renderGroups();
-      renderWorkspace();
-    }
-
-    function syncDashboardView() {
-      const groupsShell = document.getElementById("groups");
-      const groupsDashboardLink = document.getElementById("groupsDashboardLink");
-      const showGroups = window.location.hash === "#groups";
-
-      groupsShell.hidden = !showGroups;
-      groupsDashboardLink.classList.toggle("active", showGroups);
-    }
-
-    function renderMetrics() {
-      const owned = myGroups();
-
-      const umpires = owned.reduce(function (sum, group) {
-        return sum + group.umpires.length;
-      }, 0);
-
-      const games = owned.reduce(function (sum, group) {
-        return sum + group.games.length;
-      }, 0);
-
-      const assigned = owned.reduce(function (sum, group) {
-        return sum + group.games.filter(function (game) {
-          return Boolean(game.umpireId);
-        }).length;
-      }, 0);
-
-      document.getElementById("groupCount").textContent = owned.length;
-      document.getElementById("umpireCount").textContent = umpires;
-      document.getElementById("gameCount").textContent = games;
-      document.getElementById("assignedCount").textContent = assigned;
-    }
-
-    function renderGroups() {
-      const list = document.getElementById("groupList");
-      const owned = myGroups();
-
-      if (!owned.length) {
-        list.innerHTML = '<div class="empty">No groups yet. Create your first tournament group above.</div>';
-        return;
-      }
-
-      list.innerHTML = owned.map(function (group) {
-        const activeClass = group.id === activeGroupId ? " active" : "";
-
-        return [
-          '<button class="group-button' + activeClass + '" type="button" data-group-id="' + group.id + '">',
-          '<strong>' + escapeHtml(group.name) + '</strong>',
-          '<span class="small muted">' + escapeHtml(group.sport) + ' | ' + formatDate(group.startDate) + ' to ' + formatDate(group.endDate) + '</span>',
-          '</button>'
-        ].join("");
-      }).join("");
-    }
-
-    function renderWorkspace() {
+    function renderGroupHome() {
       const group = activeGroup();
-      const emptyWorkspace = document.getElementById("emptyWorkspace");
-      const workspace = document.getElementById("workspace");
-
       if (!group) {
-        emptyWorkspace.hidden = false;
-        workspace.hidden = true;
+        window.location.hash = "#groups";
         return;
       }
 
-      emptyWorkspace.hidden = true;
-      workspace.hidden = false;
-
-      document.getElementById("activeGroupName").textContent = group.name;
-      document.getElementById("activeGroupMeta").textContent =
-        group.sport + " | " + formatDate(group.startDate) + " to " + formatDate(group.endDate);
-
-      document.getElementById("groupTypePill").textContent =
-        group.type === "static" ? "Static Group" : "Connected Group";
-
-      renderTabs();
-      renderUmpireSelect();
-      renderUmpires(group);
-      renderGames(group);
-    }
-
-    function renderTabs() {
-      document.querySelectorAll(".tab").forEach(function (tab) {
-        tab.classList.toggle("active", tab.dataset.tab === activeTab);
+      const games = group.games || [];
+      const umpires = group.umpires || [];
+      const awaiting = games.filter(function (game) {
+        return !game.umpireId;
+      });
+      const assigned = games.filter(function (game) {
+        return game.umpireId;
       });
 
-      document.getElementById("umpiresPanel").classList.toggle("active", activeTab === "umpires");
-      document.getElementById("schedulePanel").classList.toggle("active", activeTab === "schedule");
+      document.getElementById("groupHomeTitle").textContent = group.name;
+      document.getElementById("groupHomeMeta").innerHTML =
+        escapeHtml(group.sport) + ' <span class="pill ' + (group.type === "active" ? "blue" : "") + '">' + escapeHtml(capitalize(group.type || "static")) + '</span>';
+      document.getElementById("officialsToAssignCount").textContent = umpires.length;
+      document.getElementById("upcomingScheduleCount").textContent = games.length;
+      document.getElementById("assignedOfficialsCount").textContent = assigned.length;
+      document.getElementById("awaitingGamesCount").textContent = awaiting.length;
+
+      renderUmpireSelect(group);
+      renderRoster(group);
+      renderSchedule(group);
+      renderAssignedOfficials(group);
+      renderAwaitingGames(group);
+      renderEvents(group);
+      renderReports(group);
     }
 
-    function renderUmpireSelect() {
+    function renderUmpireSelect(group) {
       const select = document.getElementById("assignedUmpire");
-      const group = activeGroup();
-
-      if (!group) {
-        select.innerHTML = '<option value="">Unassigned</option>';
-        return;
-      }
-
-      select.innerHTML = '<option value="">Unassigned</option>' + group.umpires.map(function (umpire) {
+      select.innerHTML = '<option value="">Unassigned</option>' + (group.umpires || []).map(function (umpire) {
         return '<option value="' + umpire.id + '">' + escapeHtml(umpire.name) + '</option>';
       }).join("");
     }
 
-    function renderUmpires(group) {
-      const list = document.getElementById("umpireList");
-
-      if (!group.umpires.length) {
-        list.innerHTML = '<div class="empty">No umpires have been added to this static group yet.</div>';
-        return;
-      }
-
-      list.innerHTML = group.umpires.map(function (umpire) {
-        return [
-          '<article class="item-card">',
-          '<div class="item-grid">',
-          '<div>',
-          '<strong>' + escapeHtml(umpire.name) + '</strong>',
-          '<span class="small muted">' + escapeHtml(umpire.contact || "No contact listed") + '</span>',
-          '</div>',
-          '<span class="pill">Rating ' + escapeHtml(umpire.superiority) + '</span>',
-          '</div>',
-          '<div class="detail-grid">',
-          '<div class="detail"><strong>Availability</strong>' + escapeHtml(umpire.availability || "Not listed") + '</div>',
-          '<div class="detail"><strong>Conflicts</strong>' + escapeHtml(umpire.conflicts || "None listed") + '</div>',
-          '<div class="detail"><strong>Abilities</strong>' + escapeHtml(umpire.abilities || "Not listed") + '</div>',
-          '<div class="detail"><strong>Status</strong>Static umpire for this group only</div>',
-          '</div>',
-          '</article>'
-        ].join("");
-      }).join("");
+    function renderRoster(group) {
+      const roster = group.umpires || [];
+      document.getElementById("rosterList").innerHTML = roster.length
+        ? roster.map(function (umpire) {
+            return [
+              '<article class="item-card">',
+              '<strong>' + escapeHtml(umpire.name) + '</strong>',
+              '<p class="small muted">' + escapeHtml(umpire.contact || "No contact listed") + '</p>',
+              '<p class="small">Availability: ' + escapeHtml(umpire.availability || "Not listed") + '</p>',
+              '<p class="small">Conflicts: ' + escapeHtml(umpire.conflicts || "None listed") + '</p>',
+              '<p class="small">Abilities: ' + escapeHtml(umpire.abilities || "Not listed") + '</p>',
+              '<span class="pill">Rating ' + escapeHtml(umpire.superiority || "3") + '</span>',
+              '</article>'
+            ].join("");
+          }).join("")
+        : '<div class="empty">No officials have been added to this group yet.</div>';
     }
 
-    function renderGames(group) {
-      const list = document.getElementById("gameList");
+    function renderSchedule(group) {
+      const games = group.games || [];
+      document.getElementById("scheduleList").innerHTML = games.length
+        ? games.map(function (game) {
+            return [
+              '<article class="item-card">',
+              '<strong>' + escapeHtml(game.teamOne) + ' vs ' + escapeHtml(game.teamTwo) + '</strong>',
+              '<p class="small muted">' + escapeHtml(game.date || "Date TBD") + ' | ' + escapeHtml(game.time || "Time TBD") + ' | ' + escapeHtml(game.field || "Field TBD") + '</p>',
+              '<label class="small">Assign official',
+              '<select class="game-assign" data-game-id="' + game.id + '">',
+              assignmentOptions(group, game.umpireId),
+              '</select>',
+              '</label>',
+              '</article>'
+            ].join("");
+          }).join("")
+        : '<div class="empty">No games have been added yet.</div>';
+    }
 
-      if (!group.games.length) {
-        list.innerHTML = '<div class="empty">No games have been added yet. Add one game or paste a bulk schedule.</div>';
-        return;
-      }
+    function renderAssignedOfficials(group) {
+      const assigned = (group.games || []).filter(function (game) {
+        return game.umpireId;
+      });
+      document.getElementById("assignedOfficialsList").innerHTML = assigned.length
+        ? assigned.map(function (game) {
+            const umpire = (group.umpires || []).find(function (item) {
+              return item.id === game.umpireId;
+            });
+            return '<article class="item-card"><strong>' + escapeHtml(umpire ? umpire.name : "Unknown official") + '</strong><p class="small muted">' + escapeHtml(game.teamOne) + ' vs ' + escapeHtml(game.teamTwo) + '</p></article>';
+          }).join("")
+        : '<div class="empty">No officials have been assigned yet.</div>';
+    }
 
-      list.innerHTML = group.games.map(function (game) {
-        return [
-          '<article class="item-card">',
-          '<div class="item-grid">',
-          '<div>',
-          '<strong>' + escapeHtml(game.teamOne) + ' vs ' + escapeHtml(game.teamTwo) + '</strong>',
-          '<span class="small muted">' + formatDate(game.date) + ' | ' + escapeHtml(game.time || "Time TBD") + ' | ' + escapeHtml(game.field || "Field TBD") + '</span>',
-          '</div>',
-          '<label class="small">Assign umpire',
-          '<select class="game-assign" data-game-id="' + game.id + '">',
-          assignmentOptions(group, game.umpireId),
-          '</select>',
-          '</label>',
-          '</div>',
-          '<p class="small muted">Level: ' + escapeHtml(game.level || "Not listed") + '</p>',
-          '</article>'
-        ].join("");
-      }).join("");
+    function renderAwaitingGames(group) {
+      const awaiting = (group.games || []).filter(function (game) {
+        return !game.umpireId;
+      });
+      document.getElementById("awaitingGamesList").innerHTML = awaiting.length
+        ? awaiting.map(function (game) {
+            return '<article class="item-card"><strong>' + escapeHtml(game.teamOne) + ' vs ' + escapeHtml(game.teamTwo) + '</strong><p class="small muted">' + escapeHtml(game.date || "Date TBD") + ' | ' + escapeHtml(game.field || "Field TBD") + '</p></article>';
+          }).join("")
+        : '<div class="empty">No games are awaiting assignment.</div>';
+    }
+
+    function renderEvents(group) {
+      const events = group.events || [];
+      document.getElementById("eventsList").innerHTML = events.length
+        ? events.map(function (event) {
+            return '<article class="item-card"><strong>' + escapeHtml(event.title) + '</strong><p class="small muted">' + escapeHtml(event.eventDate || "Date TBD") + ' | ' + escapeHtml(event.eventTime || "Time TBD") + ' | ' + escapeHtml(event.location || "Location TBD") + '</p><p class="small">' + escapeHtml(event.notes || "") + '</p></article>';
+          }).join("")
+        : '<div class="empty">No events have been added yet.</div>';
+    }
+
+    function renderReports(group) {
+      const reports = group.reports || [];
+      document.getElementById("reportsList").innerHTML = reports.length
+        ? reports.map(function (report) {
+            return '<article class="item-card"><strong>' + escapeHtml(report.title) + '</strong><p class="small muted">' + escapeHtml(report.reportType) + '</p><p class="small">' + escapeHtml(report.details || "") + '</p></article>';
+          }).join("")
+        : '<div class="empty">No reports have been saved yet.</div>';
     }
 
     function assignmentOptions(group, selectedId) {
-      const options = ['<option value="">Unassigned</option>'].concat(group.umpires.map(function (umpire) {
+      return ['<option value="">Unassigned</option>'].concat((group.umpires || []).map(function (umpire) {
         const selected = umpire.id === selectedId ? " selected" : "";
         return '<option value="' + umpire.id + '"' + selected + '>' + escapeHtml(umpire.name) + '</option>';
-      }));
-
-      return options.join("");
+      })).join("");
     }
 
-    function formatDate(value) {
-      if (!value) return "TBD";
+    function updateGroups(data) {
+      groups = data.groups || [];
+      renderAll();
+      renderGroupHome();
+    }
 
-      const date = new Date(value + "T00:00:00");
-
-      if (Number.isNaN(date.getTime())) {
-        return value;
-      }
-
-      return date.toLocaleDateString(undefined, {
-        month: "short",
-        day: "numeric",
-        year: "numeric"
-      });
+    function setMessage(id, text, type) {
+      const element = document.getElementById(id);
+      if (!element) return;
+      element.textContent = text;
+      element.className = "message show " + type;
+      setTimeout(function () {
+        element.className = "message";
+        element.textContent = "";
+      }, 3000);
     }
 
     function escapeHtml(value) {
@@ -991,74 +1081,63 @@
         .replaceAll("'", "&#039;");
     }
 
+    function capitalize(value) {
+      return String(value || "").charAt(0).toUpperCase() + String(value || "").slice(1);
+    }
+
     document.getElementById("logoutButton").addEventListener("click", async function () {
       await apiRequest("/api/logout", { method: "POST" }).catch(function () {});
       window.location.href = "login.html";
     });
 
-    document.getElementById("groupForm").addEventListener("submit", async function (event) {
+    document.getElementById("openCreateGroup").addEventListener("click", function () {
+      document.getElementById("createGroupModal").classList.add("open");
+    });
+
+    document.getElementById("closeCreateGroup").addEventListener("click", function () {
+      document.getElementById("createGroupModal").classList.remove("open");
+    });
+
+    document.getElementById("groupSearch").addEventListener("input", renderGroupsView);
+
+    document.getElementById("searchForm").addEventListener("submit", function (event) {
       event.preventDefault();
+    });
 
-      const name = document.getElementById("groupName").value.trim();
-      const sport = document.getElementById("groupSport").value.trim();
-      const startDate = document.getElementById("startDate").value;
-      const endDate = document.getElementById("endDate").value;
-      const isStatic = document.getElementById("staticGroup").checked;
+    document.getElementById("createdGroupsList").addEventListener("click", function (event) {
+      const card = event.target.closest("[data-group-id]");
+      if (!card) return;
+      window.location.hash = "#group/" + card.dataset.groupId;
+    });
 
-      if (!isStatic) {
-        setMessage("groupMessage", "Only static groups are available in this version. Please check Static group.", "error");
-        return;
-      }
-
-      if (endDate < startDate) {
-        setMessage("groupMessage", "End date must be after the start date.", "error");
-        return;
-      }
-
+    document.getElementById("createGroupForm").addEventListener("submit", async function (event) {
+      event.preventDefault();
       try {
         const data = await apiRequest("/api/groups", {
           method: "POST",
           body: JSON.stringify({
-            name,
-            sport,
-            startDate,
-            endDate,
-            type: "static"
+            name: document.getElementById("groupName").value.trim(),
+            sport: document.getElementById("groupSport").value.trim(),
+            type: document.getElementById("groupType").value,
+            startDate: "",
+            endDate: ""
           })
         });
-
         groups = data.groups || [];
         activeGroupId = data.activeGroupId || "";
         event.target.reset();
-        document.getElementById("staticGroup").checked = true;
-        setMessage("groupMessage", "Group created. You can add umpires and schedule now.", "success");
+        document.getElementById("createGroupModal").classList.remove("open");
+        window.location.hash = "#groups";
         renderAll();
       } catch (error) {
         setMessage("groupMessage", error.message, "error");
       }
     });
 
-    document.getElementById("groupList").addEventListener("click", function (event) {
-      const button = event.target.closest("[data-group-id]");
-      if (!button) return;
-
-      activeGroupId = button.dataset.groupId;
-      renderAll();
-    });
-
-    document.querySelectorAll(".tab").forEach(function (tab) {
-      tab.addEventListener("click", function () {
-        activeTab = tab.dataset.tab;
-        renderTabs();
-      });
-    });
-
     document.getElementById("umpireForm").addEventListener("submit", async function (event) {
       event.preventDefault();
-
       const group = activeGroup();
       if (!group) return;
-
       try {
         const data = await apiRequest("/api/groups/" + group.id + "/umpires", {
           method: "POST",
@@ -1071,22 +1150,19 @@
             superiority: document.getElementById("umpireSuperiority").value
           })
         });
-
-        groups = data.groups || [];
+        updateGroups(data);
         event.target.reset();
         document.getElementById("umpireSuperiority").value = "3";
-        renderAll();
+        setMessage("umpireMessage", "Official added.", "success");
       } catch (error) {
-        alert(error.message);
+        setMessage("umpireMessage", error.message, "error");
       }
     });
 
     document.getElementById("gameForm").addEventListener("submit", async function (event) {
       event.preventDefault();
-
       const group = activeGroup();
       if (!group) return;
-
       try {
         const data = await apiRequest("/api/groups/" + group.id + "/games", {
           method: "POST",
@@ -1100,110 +1176,105 @@
             umpireId: document.getElementById("assignedUmpire").value
           })
         });
-
-        groups = data.groups || [];
+        updateGroups(data);
         event.target.reset();
-        renderAll();
+        setMessage("gameMessage", "Game added.", "success");
       } catch (error) {
-        alert(error.message);
+        setMessage("gameMessage", error.message, "error");
       }
     });
 
     document.getElementById("bulkGameForm").addEventListener("submit", async function (event) {
       event.preventDefault();
-
       const group = activeGroup();
-      const raw = document.getElementById("bulkGames").value.trim();
+      if (!group) return;
 
-      if (!group || !raw) {
-        setMessage("scheduleMessage", "Paste at least one game row before importing.", "error");
-        return;
-      }
-
-      const games = raw
-        .split(/\n+/)
-        .map(parseGameRow)
-        .filter(Boolean);
+      const games = document.getElementById("bulkGamesText").value
+        .split(/\r?\n/)
+        .map(function (line) {
+          return line.trim();
+        })
+        .filter(Boolean)
+        .map(function (line) {
+          const parts = line.split(/\t|,/).map(function (part) {
+            return part.trim();
+          });
+          return {
+            date: parts[0] || "",
+            time: parts[1] || "",
+            field: parts[2] || "",
+            teamOne: parts[3] || "Team 1",
+            teamTwo: parts[4] || "Team 2",
+            level: parts[5] || ""
+          };
+        });
 
       if (!games.length) {
-        setMessage("scheduleMessage", "No usable games found. Try: date, time, field, team 1, team 2, level.", "error");
+        setMessage("bulkGameMessage", "Paste at least one game first.", "error");
         return;
       }
 
       try {
         const data = await apiRequest("/api/groups/" + group.id + "/games/bulk", {
           method: "POST",
-          body: JSON.stringify({ games })
+          body: JSON.stringify({ games: games })
         });
-
-        groups = data.groups || [];
-        document.getElementById("bulkGames").value = "";
-        setMessage("scheduleMessage", games.length + " games imported.", "success");
-        renderAll();
+        updateGroups(data);
+        event.target.reset();
+        setMessage("bulkGameMessage", "Imported " + games.length + " games.", "success");
       } catch (error) {
-        setMessage("scheduleMessage", error.message, "error");
+        setMessage("bulkGameMessage", error.message, "error");
       }
     });
 
-    document.getElementById("gameList").addEventListener("change", async function (event) {
+    document.getElementById("scheduleList").addEventListener("change", async function (event) {
       if (!event.target.classList.contains("game-assign")) return;
-
       const group = activeGroup();
       if (!group) return;
-
-      const game = group.games.find(function (item) {
-        return item.id === event.target.dataset.gameId;
+      const data = await apiRequest("/api/groups/" + group.id + "/games/" + event.target.dataset.gameId, {
+        method: "PATCH",
+        body: JSON.stringify({ umpireId: event.target.value })
       });
-
-      if (!game) return;
-
-      try {
-        const data = await apiRequest("/api/groups/" + group.id + "/games/" + game.id, {
-          method: "PATCH",
-          body: JSON.stringify({ umpireId: event.target.value })
-        });
-
-        groups = data.groups || [];
-        renderAll();
-      } catch (error) {
-        alert(error.message);
-      }
+      updateGroups(data);
     });
 
-    function parseGameRow(row) {
-      const clean = row.trim();
-      if (!clean) return null;
+    document.querySelectorAll(".report-form").forEach(function (form) {
+      form.addEventListener("submit", async function (event) {
+        event.preventDefault();
+        const group = activeGroup();
+        if (!group) return;
+        const data = await apiRequest("/api/groups/" + group.id + "/reports", {
+          method: "POST",
+          body: JSON.stringify({
+            reportType: form.dataset.reportType,
+            title: form.elements.title.value.trim(),
+            details: form.elements.details.value.trim()
+          })
+        });
+        updateGroups(data);
+        form.reset();
+        setMessage("reportMessage", "Report saved.", "success");
+      });
+    });
 
-      const parts = clean.includes("\t")
-        ? clean.split("\t").map(function (part) { return part.trim(); })
-        : clean.split(",").map(function (part) { return part.trim(); });
-
-      if (parts.length >= 5) {
-        return {
-          date: parts[0] || "",
-          time: parts[1] || "",
-          field: parts[2] || "",
-          teamOne: parts[3] || "Team 1",
-          teamTwo: parts[4] || "Team 2",
-          level: parts[5] || ""
-        };
-      }
-
-      const vsParts = clean.split(/\s+vs\.?\s+/i);
-
-      if (vsParts.length === 2) {
-        return {
-          date: "",
-          time: "",
-          field: "",
-          teamOne: vsParts[0].trim(),
-          teamTwo: vsParts[1].trim(),
-          level: ""
-        };
-      }
-
-      return null;
-    }
+    document.getElementById("eventForm").addEventListener("submit", async function (event) {
+      event.preventDefault();
+      const group = activeGroup();
+      if (!group) return;
+      const data = await apiRequest("/api/groups/" + group.id + "/events", {
+        method: "POST",
+        body: JSON.stringify({
+          title: document.getElementById("eventTitle").value.trim(),
+          eventDate: document.getElementById("eventDate").value,
+          eventTime: document.getElementById("eventTime").value,
+          location: document.getElementById("eventLocation").value.trim(),
+          notes: document.getElementById("eventNotes").value.trim()
+        })
+      });
+      updateGroups(data);
+      event.target.reset();
+      setMessage("eventMessage", "Event added.", "success");
+    });
   </script>
 </body>
 </html>
