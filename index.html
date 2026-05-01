@@ -3,191 +3,155 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Officials Engine</title>
+<title>UmpireSystem</title>
 
 <style>
-    body {
-        margin: 0;
-        font-family: Arial, sans-serif;
-        background: #0b0f17;
-        color: #ffffff;
-    }
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #0f172a;
+    color: white;
+}
 
-    /* NAVBAR */
-    .navbar {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 20px 50px;
-        background: rgba(0,0,0,0.4);
-        position: fixed;
-        width: 100%;
-        top: 0;
-        z-index: 100;
-    }
+/* NAVBAR */
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 40px;
+    background: #111827;
+}
 
-    .navbar a {
-        color: #ffffff;
-        text-decoration: none;
-        margin: 0 15px;
-        font-weight: 500;
-    }
+.logo {
+    font-size: 20px;
+    font-weight: bold;
+}
 
-    .navbar .right-buttons a {
-        padding: 10px 20px;
-        border-radius: 5px;
-        margin-left: 10px;
-    }
+.nav-links a {
+    color: white;
+    text-decoration: none;
+    margin-left: 20px;
+    font-size: 14px;
+    opacity: 0.85;
+}
 
-    .btn-primary {
-        background: #007bff;
-        color: #fff !important;
-    }
+.nav-links a:hover {
+    opacity: 1;
+}
 
-    .btn-outline {
-        border: 1px solid #007bff;
-        color: #007bff !important;
-    }
+.cta-btn {
+    background: #3b82f6;
+    padding: 8px 14px;
+    border-radius: 6px;
+    color: white;
+}
 
-    /* HERO SECTION */
-    .hero {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 150px 50px 100px;
-        background: linear-gradient(to bottom, #0b0f17, #0e1624);
-    }
+/* HERO */
+.hero {
+    text-align: center;
+    padding: 90px 20px;
+}
 
-    .hero-text {
-        max-width: 50%;
-    }
+.hero h1 {
+    font-size: 42px;
+    margin-bottom: 10px;
+}
 
-    .hero-text h1 {
-        font-size: 48px;
-        font-weight: 800;
-        margin-bottom: 20px;
-        line-height: 1.2;
-    }
+.hero p {
+    opacity: 0.8;
+    margin-bottom: 25px;
+}
 
-    .hero-text p {
-        font-size: 18px;
-        margin-bottom: 30px;
-        color: #cfd6e3;
-    }
+.btn {
+    padding: 12px 18px;
+    margin: 8px;
+    border: none;
+    cursor: pointer;
+    border-radius: 6px;
+}
 
-    .hero-buttons a {
-        padding: 14px 28px;
-        border-radius: 6px;
-        margin-right: 15px;
-        font-size: 16px;
-        text-decoration: none;
-    }
+.primary {
+    background: #3b82f6;
+    color: white;
+}
 
-    .hero-image img {
-        width: 420px;
-        filter: drop-shadow(0 0 25px #00aaff);
-    }
+.secondary {
+    background: #1f2937;
+    color: white;
+    border: 1px solid #374151;
+}
 
-    /* FEATURES SECTION */
-    .features {
-        display: flex;
-        justify-content: space-between;
-        padding: 80px 50px;
-        background: #0e1624;
-    }
+/* SECTIONS */
+.section {
+    text-align: center;
+    padding: 60px 20px;
+}
 
-    .feature-box {
-        width: 23%;
-        background: #111a2b;
-        padding: 25px;
-        border-radius: 10px;
-        border: 1px solid #1f2a3d;
-    }
-
-    .feature-box h3 {
-        color: #00aaff;
-        margin-bottom: 10px;
-    }
-
-    .feature-box p {
-        color: #cfd6e3;
-        font-size: 15px;
-    }
-
-    /* FOOTER TAGLINE */
-    .footer-tagline {
-        text-align: center;
-        padding: 40px 0;
-        background: #0b0f17;
-        font-size: 20px;
-        font-weight: 700;
-        color: #00aaff;
-    }
+.card {
+    display: inline-block;
+    background: #1f2937;
+    padding: 20px;
+    margin: 10px;
+    border-radius: 10px;
+    width: 200px;
+}
 </style>
+
 </head>
 
 <body>
 
 <!-- NAVBAR -->
-<div class="navbar">
-    <div class="left-links">
-        <a href="#">Home</a>
-        <a href="#">Features</a>
-        <a href="#">Pricing</a>
-        <a href="#">About</a>
-        <a href="#">Contact</a>
-    </div>
+<nav>
+    <div class="logo">🏟️ UmpireSystem</div>
 
-    <div class="right-buttons">
-        <a href="#" class="btn-outline">Log In</a>
-        <a href="#" class="btn-primary">Get Started</a>
+    <div class="nav-links">
+        <a href="/features">Features</a>
+        <a href="/pricing">Pricing</a>
+        <a href="/login">Login</a>
+        <a class="cta-btn" href="/register">Get Started</a>
     </div>
-</div>
+</nav>
 
-<!-- HERO SECTION -->
+<!-- HERO -->
 <div class="hero">
-    <div class="hero-text">
-        <h1>BUILT FOR OFFICIALS.<br>DRIVEN BY PERFORMANCE.</h1>
-        <h1>POWERING OFFICIALS.<br>ELEVATING THE GAME.</h1>
-        <p>Officials Engine is the all‑in‑one platform for umpires and sports officials to manage games, track performance, and grow their careers.</p>
+    <h1>Assign Games. Manage Umpires. Stay Organized.</h1>
+    <p>A simple platform for sports assigners and officiating crews.</p>
 
-        <div class="hero-buttons">
-            <a href="#" class="btn-primary">Get Started</a>
-            <a href="#" class="btn-outline">Learn More</a>
-        </div>
-    </div>
+    <button class="btn primary" onclick="location.href='/register'">
+        Create Account
+    </button>
 
-    <div class="hero-image">
-        <img src="YOUR-IMAGE-PATH-HERE.png" alt="Umpire Mask">
-    </div>
+    <button class="btn secondary" onclick="location.href='/login'">
+        Login
+    </button>
 </div>
 
 <!-- FEATURES -->
-<div class="features">
-    <div class="feature-box">
-        <h3>Game Management</h3>
-        <p>Schedule, assign, and manage games with ease.</p>
-    </div>
+<div class="section">
+    <h2>Features</h2>
 
-    <div class="feature-box">
-        <h3>Performance Tracking</h3>
-        <p>Track stats, evaluate games, and monitor progress.</p>
-    </div>
-
-    <div class="feature-box">
-        <h3>Career Development</h3>
-        <p>Access training, resources, and advancement tools.</p>
-    </div>
-
-    <div class="feature-box">
-        <h3>Officials Community</h3>
-        <p>Connect with officials, share insights, and grow.</p>
-    </div>
+    <div class="card">Assign Games</div>
+    <div class="card">Manage Groups</div>
+    <div class="card">Track Schedule</div>
 </div>
 
-<!-- FOOTER TAGLINE -->
-<div class="footer-tagline">
-    BUILT BY OFFICIALS. FOR OFFICIALS.
+<!-- PRICING PREVIEW -->
+<div class="section">
+    <h2>Plans</h2>
+
+    <div class="card">$5 Assign Only</div>
+    <div class="card">$7 AI Engine</div>
+    <div class="card">$10 Full Platform</div>
+</div>
+
+<!-- CTA -->
+<div class="section">
+    <h2>Get started in minutes</h2>
+
+    <button class="btn primary" onclick="location.href='/register'">
+        Start Now
+    </button>
 </div>
 
 </body>
