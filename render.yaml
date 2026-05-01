@@ -1,0 +1,21 @@
+services:
+  - type: web
+    name: officials-engine
+    env: node
+    plan: free
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: SESSION_SECRET
+        generateValue: true
+      - key: DATABASE_URL
+        fromDatabase:
+          name: officials-engine-db
+          property: connectionString
+
+databases:
+  - name: officials-engine-db
+    databaseName: officials_engine
+    user: officials_engine_user
