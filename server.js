@@ -7,6 +7,9 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 const SESSION_SECRET = process.env.SESSION_SECRET || "dev-only-change-this-secret";
 const DATABASE_URL = process.env.DATABASE_URL;
+const MASTER_CODE = process.env.MASTER_CODE;
+const MASTER_EMAIL = process.env.MASTER_EMAIL || "master@officialsengine.local";
+const MASTER_NAME = process.env.MASTER_NAME || "Master Admin";
 
 if (!DATABASE_URL) {
   console.warn("DATABASE_URL is not set. Add a Render Postgres database before deploying.");
@@ -63,12 +66,7 @@ function signSession(userId) {
     userId,
     expiresAt: Date.now() + 1000 * 60 * 60 * 24 * 7
   })).toString("base64url");
-
-  const signature = crypto
-    .createHmac("sha256", SESSION_SECRET)
-    .update(payload)
-    .digest("base64url");
-
+  const signature = crypto.createHmac("sha256", SESSION_SECRET).update(payload).digest("base64url");
   return `${payload}.${signature}`;
 }
 
@@ -88,10 +86,7 @@ function verifySessionToken(token) {
   }
 
   const [payload, signature] = token.split(".");
-  const expected = crypto
-    .createHmac("sha256", SESSION_SECRET)
-    .update(payload)
-    .digest("base64url");
+  const expected = crypto.createHmac("sha256", SESSION_SECRET).update(payload).digest("base64url");
 
   if (Buffer.byteLength(signature) !== Buffer.byteLength(expected)) {
     return null;
@@ -123,7 +118,6 @@ function clearSessionCookie(res) {
 
 async function currentUser(req) {
   requireDatabase();
-
   const cookies = readCookies(req.headers.cookie);
   const session = verifySessionToken(cookies.oe_session);
 
@@ -142,11 +136,9 @@ async function currentUser(req) {
 async function requireUser(req, res, next) {
   try {
     const user = await currentUser(req);
-
     if (!user) {
       return res.status(401).json({ error: "Please login first." });
     }
-
     req.user = user;
     next();
   } catch (error) {
@@ -321,7 +313,6 @@ async function fetchGroupsForUser(userId) {
   );
 
   const groups = groupsResult.rows.map(mapGroup);
-
   if (!groups.length) {
     return [];
   }
@@ -363,7 +354,6 @@ async function assertGroupOwner(groupId, userId) {
     "select id from groups where id = $1 and owner_id = $2",
     [groupId, userId]
   );
-
   return Boolean(result.rows[0]);
 }
 
@@ -386,7 +376,6 @@ app.post("/api/register", async (req, res, next) => {
     }
 
     const existing = await pool.query("select id from users where email = $1", [email]);
-
     if (existing.rows[0]) {
       return res.status(409).json({ error: "An account with this email already exists." });
     }
@@ -420,6 +409,43 @@ app.post("/api/login", async (req, res, next) => {
 
     if (!user || !verifyPassword(password, user.password_salt, user.password_hash)) {
       return res.status(401).json({ error: "Email or password is incorrect." });
+    }
+
+    setSessionCookie(res, user.id);
+    res.json({ user: toPublicUser(user) });
+  } catch (error) {
+    next(error);
+  }
+});
+
+app.post("/api/master-login", async (req, res, next) => {
+  try {
+    requireDatabase();
+
+    if (!MASTER_CODE) {
+      return res.status(503).json({ error: "Master Mode is not configured on the server." });
+    }
+
+    const code = String(req.body.code || "");
+    if (code !== MASTER_CODE) {
+      return res.status(401).json({ error: "Master code is incorrect." });
+    }
+
+    const existing = await pool.query("select * from users where email = $1", [MASTER_EMAIL]);
+    let user = existing.rows[0];
+
+    if (!user) {
+      const password = crypto.randomBytes(32).toString("hex");
+      const { salt, hash } = hashPassword(password);
+
+      const result = await pool.query(
+        `insert into users (id, name, email, role, password_hash, password_salt)
+         values ($1, $2, $3, $4, $5, $6)
+         returning id, name, email, role, created_at`,
+        [crypto.randomUUID(), MASTER_NAME, MASTER_EMAIL, "master", hash, salt]
+      );
+
+      user = result.rows[0];
     }
 
     setSessionCookie(res, user.id);
@@ -728,4 +754,3 @@ initDatabase()
     console.error("Failed to start server:", error);
     process.exit(1);
   });
-
