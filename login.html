@@ -273,6 +273,7 @@
   <header>
     <div class="nav">
       <a class="logo" href="index.html">Officials <span>Engine</span></a>
+
       <nav class="menu" aria-label="Main navigation">
         <a href="index.html">Home</a>
         <a href="index.html#features">Features</a>
@@ -280,6 +281,7 @@
         <a href="index.html#plans">How It Works</a>
         <a href="index.html#about">About Us</a>
       </nav>
+
       <a class="btn" href="register.html">Get Started</a>
     </div>
   </header>
@@ -295,6 +297,7 @@
     <section class="auth-card" aria-labelledby="login-title">
       <h2 id="login-title">Login</h2>
       <p>Use the email and password you registered with.</p>
+
       <div id="message" class="message" aria-live="polite"></div>
 
       <form id="loginForm">
@@ -313,6 +316,7 @@
             <input id="remember" type="checkbox" />
             Remember me
           </label>
+
           <button class="link" type="button" id="forgotPassword">Forgot password?</button>
         </div>
 
@@ -324,50 +328,56 @@
   </main>
 
   <script>
-    const USERS_KEY = "officialsEngineUsers";
-    const SESSION_KEY = "officialsEngineSession";
-
-    function getUsers() {
-      return JSON.parse(localStorage.getItem(USERS_KEY) || "[]");
-    }
-
     function showMessage(text, type) {
       const message = document.getElementById("message");
       message.textContent = text;
       message.className = "message " + type;
     }
 
-    document.getElementById("loginForm").addEventListener("submit", function (event) {
-      event.preventDefault();
-
-      const email = document.getElementById("email").value.trim().toLowerCase();
-      const password = document.getElementById("password").value;
-      const users = getUsers();
-      const user = users.find(function (item) {
-        return item.email === email && item.password === password;
+    async function apiRequest(url, options) {
+      const response = await fetch(url, {
+        headers: { "Content-Type": "application/json" },
+        credentials: "same-origin",
+        ...options
       });
 
-      if (!user) {
-        showMessage("Email or password is incorrect.", "error");
-        return;
+      const data = await response.json().catch(function () {
+        return {};
+      });
+
+      if (!response.ok) {
+        throw new Error(data.error || "Something went wrong.");
       }
 
-      localStorage.setItem(SESSION_KEY, JSON.stringify({
-        email: user.email,
-        name: user.name,
-        role: user.role,
-        signedInAt: new Date().toISOString()
-      }));
+      return data;
+    }
 
-      showMessage("Login successful. Taking you to your dashboard...", "success");
-      window.setTimeout(function () {
-        window.location.href = "dashboard.html";
-      }, 700);
+    document.getElementById("loginForm").addEventListener("submit", async function (event) {
+      event.preventDefault();
+
+      try {
+        await apiRequest("/api/login", {
+          method: "POST",
+          body: JSON.stringify({
+            email: document.getElementById("email").value.trim().toLowerCase(),
+            password: document.getElementById("password").value
+          })
+        });
+
+        showMessage("Login successful. Taking you to your dashboard...", "success");
+
+        window.setTimeout(function () {
+          window.location.href = "dashboard.html";
+        }, 500);
+      } catch (error) {
+        showMessage(error.message, "error");
+      }
     });
 
     document.getElementById("forgotPassword").addEventListener("click", function () {
-      showMessage("For this demo, create a new account or check the password saved in this browser.", "error");
+      showMessage("Password reset is not built yet. Create a new account or contact your site admin.", "error");
     });
   </script>
 </body>
 </html>
+
