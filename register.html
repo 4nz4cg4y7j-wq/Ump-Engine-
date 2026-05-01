@@ -276,6 +276,7 @@
   <header>
     <div class="nav">
       <a class="logo" href="index.html">Officials <span>Engine</span></a>
+
       <nav class="menu" aria-label="Main navigation">
         <a href="index.html">Home</a>
         <a href="index.html#features">Features</a>
@@ -283,6 +284,7 @@
         <a href="index.html#plans">How It Works</a>
         <a href="index.html#about">About Us</a>
       </nav>
+
       <a class="btn outline" href="login.html">Login</a>
     </div>
   </header>
@@ -298,6 +300,7 @@
     <section class="auth-card" aria-labelledby="register-title">
       <h2 id="register-title">Register</h2>
       <p>Create an account to continue to your dashboard.</p>
+
       <div id="message" class="message" aria-live="polite"></div>
 
       <form id="registerForm">
@@ -342,7 +345,7 @@
 
         <label class="terms">
           <input id="terms" type="checkbox" required />
-          I agree to create an Officials Engine account in this browser.
+          I agree to create an Officials Engine account.
         </label>
 
         <button class="btn" type="submit">Create Account</button>
@@ -353,24 +356,31 @@
   </main>
 
   <script>
-    const USERS_KEY = "officialsEngineUsers";
-    const SESSION_KEY = "officialsEngineSession";
-
-    function getUsers() {
-      return JSON.parse(localStorage.getItem(USERS_KEY) || "[]");
-    }
-
-    function saveUsers(users) {
-      localStorage.setItem(USERS_KEY, JSON.stringify(users));
-    }
-
     function showMessage(text, type) {
       const message = document.getElementById("message");
       message.textContent = text;
       message.className = "message " + type;
     }
 
-    document.getElementById("registerForm").addEventListener("submit", function (event) {
+    async function apiRequest(url, options) {
+      const response = await fetch(url, {
+        headers: { "Content-Type": "application/json" },
+        credentials: "same-origin",
+        ...options
+      });
+
+      const data = await response.json().catch(function () {
+        return {};
+      });
+
+      if (!response.ok) {
+        throw new Error(data.error || "Something went wrong.");
+      }
+
+      return data;
+    }
+
+    document.getElementById("registerForm").addEventListener("submit", async function (event) {
       event.preventDefault();
 
       const firstName = document.getElementById("firstName").value.trim();
@@ -396,38 +406,26 @@
         return;
       }
 
-      const users = getUsers();
-      const exists = users.some(function (user) {
-        return user.email === email;
-      });
+      try {
+        await apiRequest("/api/register", {
+          method: "POST",
+          body: JSON.stringify({
+            firstName,
+            lastName,
+            email,
+            role,
+            password
+          })
+        });
 
-      if (exists) {
-        showMessage("An account with this email already exists. Please login instead.", "error");
-        return;
+        showMessage("Account created. Taking you to your dashboard...", "success");
+
+        window.setTimeout(function () {
+          window.location.href = "dashboard.html";
+        }, 600);
+      } catch (error) {
+        showMessage(error.message, "error");
       }
-
-      const user = {
-        name: firstName + " " + lastName,
-        email: email,
-        role: role,
-        password: password,
-        createdAt: new Date().toISOString()
-      };
-
-      users.push(user);
-      saveUsers(users);
-
-      localStorage.setItem(SESSION_KEY, JSON.stringify({
-        email: user.email,
-        name: user.name,
-        role: user.role,
-        signedInAt: new Date().toISOString()
-      }));
-
-      showMessage("Account created. Taking you to your dashboard...", "success");
-      window.setTimeout(function () {
-        window.location.href = "dashboard.html";
-      }, 800);
     });
   </script>
 </body>
